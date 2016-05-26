@@ -1,0 +1,14 @@
+@import './style2';
+
+.body {
+    background: #ff0;
+    color: #0f0;
+}
+
+.main {
+    color: #000;
+
+    &-container {
+        color: #888;
+    }
+}
