@@ -1,7 +1,4 @@
-//const asdf = require('./webpack-configs/myConfig');
-//const asdf = require('./webpack-configs/otherConfig');
-//const asdf = require('./webpack-configs/hotReplacementConfig');
-//const asdf = require('./webpack-configs/generatePublic');
+const webpack = require('webpack');
 
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -11,7 +8,7 @@ const scssLoaders = [
     'sass'
 ];
 
-const asdf = {
+module.exports = {
     context: path.join(__dirname, '/src'),
     entry: './app',
     output: {
@@ -56,5 +53,3 @@ const asdf = {
     devtool: 'source-map'/*,
      watch: true*/
 };
-
-module.exports = asdf;

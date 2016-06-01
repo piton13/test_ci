@@ -4,7 +4,7 @@
   "description": "webpack configuration project",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors",
+    "start": "webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Igor Mykhaylyuk",

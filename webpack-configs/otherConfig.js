@@ -2,20 +2,21 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 
 const scssLoaders = [
+    'style-loader',
     'css',
     'sass'
 ];
 
 module.exports = {
     //context: './src',
-    entry: './src/app',
+    entry: ['webpack-dev-server/client', 'webpack/hot/dev-server', './src/app'],
     output: {
         path: './build',
         publicPath: '/build',
         filename: 'bundle.js'
     },
     // resolve modules
-    resolve: {
+    /*resolve: {
         modulesDirectories: ['node_modules'],
         extentions: ['', '.js']
     },
@@ -24,7 +25,7 @@ module.exports = {
         modulesDirectories: ['node_modules'],
         moduleTemplates: ['*-loader', '*'],
         extensions: ['', '.js']
-    },
+    },*/
     module: {
         loaders: [
             {
@@ -34,6 +35,10 @@ module.exports = {
                 query: {
                     presets: ['es2015']
                 }
+            },
+            {
+                test: /\.scss$/,
+                loader: scssLoaders.join('!')
             }/*,
             {
                 test: /\.(jpg|png|svg|ttf|eot|woff|woff2)$/,
@@ -41,17 +46,19 @@ module.exports = {
                 query: {
                     name: '[path][name].[ext]'
                 }
-            },
-            {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', scssLoaders.join('!'))
             }*/
         ]
     },
-    devtool: 'source-map',
-    watch: true,
+    //devtool: 'source-map',
+    //watch: true,
     plugins: [
-        new webpack.NoErrorsPlugin()
+        //new webpack.NoErrorsPlugin(),
+        new webpack.HotModuleReplacementPlugin()
         //new ExtractTextPlugin("bundle.css")
-    ]
+    ],
+    devServer: {
+        //host: 'localhost',
+        //port: '8080',
+        hot: true
+    }
 };
