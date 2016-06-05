@@ -1,0 +1,26 @@
+.menu {
+  position: relative;
+  height: 25px;
+  background-color: #ff0;
+  text-align: center;
+  width: 25%;
+  opacity: .7;
+}
+
+.left,
+.right {
+  position: absolute;
+  width: 10px;
+  height: 25px;
+  top: 0;
+}
+
+.left {
+  left: 0;
+  @include sprite($left-btn);
+}
+
+.right {
+  right: 0;
+  @include sprite($right-btn);
+}

@@ -11,6 +11,8 @@ const scssLoaders = [
     'sass'
 ];
 
+const SpritesmithPlugin = require('webpack-spritesmith');
+
 const asdf = {
     context: path.join(__dirname, '/src'),
     entry: './app',
@@ -21,7 +23,8 @@ const asdf = {
     },
     // resolve modules
     resolve: {
-        extentions: ['', '.js', '.scss']
+        extentions: ['', '.js', '.scss'],
+        modulesDirectories: ['node_modules', 'spritesmith-generated']
     },
     // resolve loaders
     resolveLoader: {
@@ -51,10 +54,23 @@ const asdf = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('bundle.css')
+        new ExtractTextPlugin('bundle.css'),
+        new SpritesmithPlugin({
+            src: {
+                cwd: path.resolve(__dirname, 'src/sprites'),
+                glob: '*.png'
+            },
+            target: {
+                image: path.resolve(__dirname, 'src/spritesmith-generated/sprite.png'),
+                css: path.resolve(__dirname, 'src/spritesmith-generated/sprite.scss')
+            },
+            apiOptions: {
+                cssImageRef: "~sprite.png"
+            }
+        })
     ],
-    devtool: 'source-map'/*,
-     watch: true*/
+    devtool: 'source-map',
+    watch: true
 };
 
 module.exports = asdf;
