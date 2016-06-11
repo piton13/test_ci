@@ -2,8 +2,12 @@
 //const asdf = require('./webpack-configs/otherConfig');
 //const asdf = require('./webpack-configs/hotReplacementConfig');
 //const asdf = require('./webpack-configs/generatePublic');
+// TODO Add build file for vendors;
+//
 
 const path = require('path');
+const rimraf = require('rimraf');
+const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const scssLoaders = [
     'css',
@@ -15,7 +19,9 @@ const SpritesmithPlugin = require('webpack-spritesmith');
 
 const asdf = {
     context: path.join(__dirname, '/src'),
-    entry: './app',
+
+    //"start": "webpack-dev-server --hot --inline --content-base build",
+    entry: ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/dev-server', './app'],
     output: {
         path: path.join(__dirname, '/build'),
         publicPath: 'http://localhost:8080/build/',
@@ -48,13 +54,19 @@ const asdf = {
                 test: /\.(jpg|png|svg|ttf|eot|woff|woff2)$/,
                 loader: 'file',
                 query: {
-                    name: '[path][name].[ext]'
+                    name: '[path][name].[ext]?[hash]'
                 }
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin('bundle.css'),
+        // to clean previous build folder
+        /*{
+            apply: function(compiler) {
+                return rimraf.sync(compiler.options.output.path)
+            }
+        },*/
+        new ExtractTextPlugin('bundle.css', {allChunks: true, disable: true}),
         new SpritesmithPlugin({
             src: {
                 cwd: path.resolve(__dirname, 'src/sprites'),
@@ -67,10 +79,17 @@ const asdf = {
             apiOptions: {
                 cssImageRef: "~sprite.png"
             }
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devtool: 'source-map',
-    watch: true
+    watch: true,
+    devServer: {
+        //host: 'localhost', // default
+        //port: 8080, // default,
+        //contentBase: path.resolve(__dirname, 'build'),
+        hot: true
+    }
 };
 
 module.exports = asdf;
