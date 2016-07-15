@@ -1,5 +1,14 @@
+'use strict';
+
 require('./styles/main.scss');
-require('./scripts/main.es6');
+var angular = require('angular');
+
+var MyController = require('./scripts/MyController');
+//require('./scripts/main.es6');
 console.log('app loaded');
 
-alert('asdf');
+angular.module('app', [])
+    //.config(($urlRouterProvider) => {
+    //    $urlRouterProvider.otherwise('/webpack-dev-server');
+    //})
+    .controller('myController', MyController);

@@ -5,19 +5,21 @@
     <title>Webpack configuration</title>
     <link rel="stylesheet" href="build/bundle.css">
 </head>
-<body class="body">
+<body class="body" ng-app="app">
     <div class="menu">
         <span class="left">&nbsp;</span>
         content
         <span class="right">&nbsp;</span>
     </div>
-    <div class="style2">
+    <div class="style2" ng-controller="myController as myCtrl">
         inner container
+        <button ng-click="myCtrl.alertMessage()">show alert</button>
     </div>
     <div class="style3">
         inner other container
         <input type="text">
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
     <script src="build/bundle.js"></script>
 </body>
 </html>
