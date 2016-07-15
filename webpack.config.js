@@ -6,7 +6,7 @@
 //
 
 const path = require('path');
-const rimraf = require('rimraf');
+// const rimraf = require('rimraf');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const scssLoaders = [
@@ -39,7 +39,7 @@ const asdf = {
     module: {
         loaders: [
             {
-                test: /\.es6$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
