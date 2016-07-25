@@ -1,0 +1,40 @@
+# before_install
+# install
+#   - npm install
+# before_script
+# script: (phantomjs testrunner.js) (npm test && npm start)
+# after_success or after_failure
+# before_deploy
+# deploy
+# after_deploy
+# after_script
+
+sudo: required
+language: node_js
+node_js:
+    # uses npm v.3.8.6
+    # - "5.12.0"
+    - "4.2.2"
+matrix:
+    fast_finish: true
+before_install:
+    - "npm install -g npm"
+install:
+    - npm install
+before_script:
+    # - npm install -g npm
+    # - npm install -g karma
+script:
+    - npm test
+git:
+    # depth of cloned git commits
+    depth: 50
+# blocklist
+branches:
+    except:
+        - master
+# safelist:
+branches:
+    only:
+        - development
+
