@@ -83,7 +83,7 @@ const asdf = {
         new webpack.HotModuleReplacementPlugin()
     ],
     devtool: 'source-map',
-    watch: true,
+    watch: false,
     devServer: {
         //host: 'localhost', // default
         //port: 8080, // default,

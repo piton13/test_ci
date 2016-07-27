@@ -1,6 +1,6 @@
 *~
 *.log
 .idea
-build
+deploy_key.pub
 node_modules
 src/spritesmith-generated
