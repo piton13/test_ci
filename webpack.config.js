@@ -1,11 +1,9 @@
 //const asdf = require('./webpack-configs/myConfig');
-//const asdf = require('./webpack-configs/otherConfig');
-//const asdf = require('./webpack-configs/hotReplacementConfig');
-//const asdf = require('./webpack-configs/generatePublic');
 // TODO Add build file for vendors;
 //
 
 const path = require('path');
+// rimraf - for clearing previous builded content
 // const rimraf = require('rimraf');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -17,14 +15,12 @@ const scssLoaders = [
 
 const SpritesmithPlugin = require('webpack-spritesmith');
 
-console.log('<<<<<<<<<<<<<<<<<',process.env.NODE_ENV);
 const NODE_ENV = process.env.NODE_ENV || 'development';
-console.log('>>>>>>>>>>>>>>>>>>>>>>>>',NODE_ENV);
+
 const asdf = {
     context: path.join(__dirname, '/src'),
 
     //"start": "webpack-dev-server --hot --inline --content-base build",
-    //entry: ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/dev-server', './app'],
     entry: ['./app'],
     output: {
         path: path.join(__dirname, '/build'),
@@ -39,8 +35,8 @@ const asdf = {
     // resolve loaders
     resolveLoader: {
         root: path.join(__dirname, '/node_modules'),
-	moduleTemplates: ['*-loader', '*'],
-	extentions: ['', '.js']
+	    moduleTemplates: ['*-loader', '*'],
+	    extentions: ['', '.js']
     },
     module: {
         loaders: [
@@ -85,17 +81,10 @@ const asdf = {
             apiOptions: {
                 cssImageRef: "~sprite.png"
             }
-        }),
-//        new webpack.HotModuleReplacementPlugin()
+        })
     ],
     devtool: NODE_ENV === 'development' ? 'source-map': null,
     watch: NODE_ENV === 'development',
-    //devServer: {
-        //host: 'localhost', // default
-        //port: 8080, // default,
-        //contentBase: path.resolve(__dirname, 'build'),
-        //hot: true
-    //}
 };
 
 if(NODE_ENV === 'production') {
@@ -113,7 +102,10 @@ if(NODE_ENV === 'development') {
 	asdf.output.publicPath = 'http://localhost:8080/build/';
 	asdf.plugins.push(new webpack.HotModuleReplacementPlugin());
 	asdf.devServer = {
-		hot: true
+	    //host: 'localhost', // default
+        //port: 8080, // default,
+        //contentBase: path.resolve(__dirname, 'build'),
+     	hot: true
 	};
 }
 

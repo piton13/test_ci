@@ -14,6 +14,7 @@ before_install:
 install:
 - npm install
 before_script: 
+- export NODE_ENV=production
 script:
 - npm test
 - npm run build
