@@ -17,14 +17,18 @@ const scssLoaders = [
 
 const SpritesmithPlugin = require('webpack-spritesmith');
 
+console.log('<<<<<<<<<<<<<<<<<',process.env.NODE_ENV);
+const NODE_ENV = process.env.NODE_ENV || 'development';
+console.log('>>>>>>>>>>>>>>>>>>>>>>>>',NODE_ENV);
 const asdf = {
     context: path.join(__dirname, '/src'),
 
     //"start": "webpack-dev-server --hot --inline --content-base build",
-    entry: ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/dev-server', './app'],
+    //entry: ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/dev-server', './app'],
+    entry: ['./app'],
     output: {
         path: path.join(__dirname, '/build'),
-        publicPath: 'http://localhost:8080/build/',
+        //publicPath: 'http://localhost:8080/build/',
         filename: 'bundle.js'
     },
     // resolve modules
@@ -34,7 +38,9 @@ const asdf = {
     },
     // resolve loaders
     resolveLoader: {
-        root: path.join(__dirname, '/node_modules')
+        root: path.join(__dirname, '/node_modules'),
+	moduleTemplates: ['*-loader', '*'],
+	extentions: ['', '.js']
     },
     module: {
         loaders: [
@@ -66,7 +72,7 @@ const asdf = {
                 return rimraf.sync(compiler.options.output.path)
             }
         },*/
-        new ExtractTextPlugin('bundle.css', {allChunks: true, disable: true}),
+        new ExtractTextPlugin('bundle.css', {allChunks: true, disable: NODE_ENV === 'development'}),
         new SpritesmithPlugin({
             src: {
                 cwd: path.resolve(__dirname, 'src/sprites'),
@@ -80,16 +86,35 @@ const asdf = {
                 cssImageRef: "~sprite.png"
             }
         }),
-        new webpack.HotModuleReplacementPlugin()
+//        new webpack.HotModuleReplacementPlugin()
     ],
-    devtool: 'source-map',
-    watch: false,
-    devServer: {
+    devtool: NODE_ENV === 'development' ? 'source-map': null,
+    watch: NODE_ENV === 'development',
+    //devServer: {
         //host: 'localhost', // default
         //port: 8080, // default,
         //contentBase: path.resolve(__dirname, 'build'),
-        hot: true
-    }
+        //hot: true
+    //}
 };
+
+if(NODE_ENV === 'production') {
+	asdf.plugins.push(new webpack.optimize.UglifyJsPlugin({
+		compress: {
+			warnings: false,
+			drop_console: true,
+			unsafe: false
+		}
+	}));
+}
+
+if(NODE_ENV === 'development') {
+	asdf.entry.unshift('webpack-dev-server/client?http://localhost:8080', 'webpack/hot/dev-server');
+	asdf.output.publicPath = 'http://localhost:8080/build/';
+	asdf.plugins.push(new webpack.HotModuleReplacementPlugin());
+	asdf.devServer = {
+		hot: true
+	};
+}
 
 module.exports = asdf;
