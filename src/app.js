@@ -1,13 +1,15 @@
 'use strict';
 
 require('./styles/main.scss');
-var angular = require('angular');
 
-var MyController = require('./scripts/MyController');
-//require('./scripts/main.es6');
-console.log('app loaded');
+import angular from 'angular';
+import inheritance from './scripts/inheritance/inheritance.module';
 
-angular.module('app', [])
+import MyController from './scripts/MyController';
+
+angular.module('app', [
+        inheritance
+    ])
     //.config(($urlRouterProvider) => {
     //    $urlRouterProvider.otherwise('/webpack-dev-server');
     //})

@@ -7,6 +7,7 @@ const path = require('path');
 // const rimraf = require('rimraf');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 const scssLoaders = [
     'css',
     'resolve-url',
@@ -81,10 +82,14 @@ const asdf = {
             apiOptions: {
                 cssImageRef: "~sprite.png"
             }
+        }),
+        new ngAnnotatePlugin({
+            add: true,
+            map: NODE_ENV === 'development'
         })
     ],
     devtool: NODE_ENV === 'development' ? 'source-map': null,
-    watch: NODE_ENV === 'development',
+    watch: NODE_ENV === 'development'
 };
 
 if(NODE_ENV === 'production') {

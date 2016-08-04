@@ -1,11 +1,14 @@
-module.exports = function() {
-    var vm = this;
+import angular from 'angular';
 
-    angular.extend(vm, {
-        alertMessage: alertMessage
-    });
+export default class MyController {
 
-    function alertMessage() {
-        alert('message from ng-click');
+    constructor(inheritanceService) {
+        'ngInject';
+        this.inheritanceService = inheritanceService;
+    }
+
+    alertMessage() {
+        console.log(this.inheritanceService.getSuperClass());
+        alert('the name of superClass is:' + this.inheritanceService.getSuperClass().name);
     }
 };
