@@ -1,0 +1,9 @@
+--compilers js:babel-core/register
+--recursive
+--reporter dot
+--ui bdd
+--slow 100
+--check-leaks
+--require ./test.config.js
+--watch-extensions js
+./mocha.init.js ./src/scripts/**/*.spec.js

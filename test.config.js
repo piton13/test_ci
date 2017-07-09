@@ -1,19 +1,13 @@
-import 'angular';
-import 'angular-mocks/angular-mocks';
 import chai from 'chai';
-window.chai = chai;
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
-function loadSpecs() {
-	var context = require.context('./src', true, /\.spec\.js$/);
-	context.keys().forEach(context);
-}
+global.chai = chai;
+global.expect = chai.expect;
+global.sinon = sinon;
 
-beforeEach(function() {
-	window.env = sinon.sandbox.create();
-});
+chai.use(sinonChai);
+chai.should();
+chai.config.includeStack = true;
 
-afterEach(function() {
-	window.env.restore();
-});
-
-loadSpecs();
+global.env = sinon.sandbox.create();

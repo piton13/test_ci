@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
     "build": "webpack --progress",
-    "test": "karma start",
+    "test": "mocha --opts ./mocha.opts",
     "tdd": "karma start --singleRun=false"
   },
   "author": "Igor Mykhaylyuk",
@@ -36,8 +36,8 @@
     "phantomjs-prebuilt": "2.1.4",
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.2.0",
-    "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.11.0",
     "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
@@ -45,7 +45,7 @@
     "webpack-spritesmith": "^0.2.0"
   },
   "dependencies": {
-    "angular": "^1.5.7",
-    "angular-mocks": "^1.5.7"
+    "angular": "1.5.8",
+    "angular-mocks": "1.5.8"
   }
 }
