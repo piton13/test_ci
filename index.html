@@ -14,6 +14,8 @@
     <div class="style2" ng-controller="myController as myCtrl">
         inner container
         <button ng-click="myCtrl.alertMessage()">show alert</button>
+        <div ng-if="myCtrl.dataFromServer">{{myCtrl.dataFromServer | json}}</div>
+        <button ng-click="myCtrl.showData()">make request</button>
     </div>
     <div class="style3">
         inner other container

@@ -1,7 +1,7 @@
 sudo: required
 language: node_js
 node_js:
-- 4.2.2
+- 6.10.1
 env:
   global:
   - ENCRYPTION_LABEL: 3bf8f2b432cb
@@ -9,8 +9,6 @@ env:
   - COMMIT_AUTHOR_EMAIL: igor13luk@gmail.com
 matrix:
   fast_finish: true
-before_install:
-- npm install -g npm
 install:
 - npm install
 before_script: 
