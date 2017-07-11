@@ -23,7 +23,7 @@ describe('initial test', () => {
 
 	it('should make request to cross domain server', function() {
 		sut.showData();
-		$http.get.should.calledWith('http://192.168.1.119:7776/word');
+		$http.get.should.calledWith('https://192.168.1.137:7776/word');
 	});
 	
 });

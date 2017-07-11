@@ -13,7 +13,7 @@ export default class MyController {
     }
 
     showData() {
-        this.http.get('http://192.168.1.119:7776/word')
+        this.http.get('https://192.168.1.137:7776/word')
             .then((response) => {
                 this.dataFromServer = response;
             });
